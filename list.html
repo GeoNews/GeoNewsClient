@@ -1,0 +1,36 @@
+﻿<h2>Stories</h2>
+<a ng-href="#/new">New</a>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    StoryId
+                </th>
+                <th>
+                    Headline
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in stories">
+                <td>
+                    {{item.id}}
+                </td>
+                <td>
+                    <a ng-href="#/detail/{{item.id}}">{{item.HeadLine}}</a>
+                </td>
+                <td>
+                    {{item.StoryDate}}
+                </td>
+                <td>
+                    <button ng-click="delete(item.id)">Delete me</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>

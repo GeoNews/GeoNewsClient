@@ -1,0 +1,20 @@
+﻿<div>
+    <h3>{{story.HeadLine}}</h3>
+    <hr />
+    <p><b>Id: </b>{{story.id}}</p>
+    <p><b>Date: </b>{{story.StoryDate}}</p>
+    <div>
+        <h4>Story text</h4>
+        <p ng-repeat="text in story.paragraphs">{{text}}</p>
+    </div>
+    <hr />
+    <h4>Add a paragraph</h4>
+    <!--<p>{{newParagraph}}</p>
+    <button ng-click="addParagraph()">Add or whatever</button>-->
+    <form>
+        <input type="text" ng-model="newParagraph"/>
+        <br />
+        <input type="submit" name="submit" value="Add" ng-click="addParagraph()"/>
+    </form>
+        <button ng-click="removeAll()">Remove all</button>
+</div>
