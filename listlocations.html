@@ -1,0 +1,29 @@
+<h2>Locations</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Location id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="location in locations">
+                <td>
+                    {{location.id}}
+                </td>
+                <td>
+                    {{location.name}}
+                </td>
+                <td>
+                    <button ng-click="delete(location.id)">Delete me</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>

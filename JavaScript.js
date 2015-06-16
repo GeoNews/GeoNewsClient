@@ -7,6 +7,10 @@ myapp.config(['$routeProvider',
                 templateUrl: 'list.html',
                 controller: 'newsListCtrl'
             }).
+            when('/listlocations', {
+                templateUrl: 'listlocations.html',
+                controller: 'listLocationsCtrl'
+            }).
             when('/detail/:storyId', {
                 templateUrl: 'detail.html',
                 controller: 'newsDetailCtrl'
@@ -28,6 +32,14 @@ myapp.factory('stories', function ($http) {
     };
 });
 
+myapp.factory('locations', function ($http) {
+    var downloadedLocations = [];
+
+    return function () {
+        return downloadedLocations;
+    };
+});
+
 myapp.controller('newsNewItemCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.submit = function () {
         var paras = {
@@ -40,6 +52,34 @@ myapp.controller('newsNewItemCtrl', ['$scope', '$http', function ($scope, $http)
         });
     };
 }]);
+
+myapp.controller('listLocationsCtrl', ['$scope', '$http', 'locations',
+    function ($scope, $http, locations) {
+        var l = locations();
+        if (l.length == 0) {
+            $http.get('http://geonews.azurewebsites.net/api/Location')
+                    .success(function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            l.push(data[i]);
+                        }
+                    });
+                    l.push({ id: 23, name: "TSB Arena" });
+        }
+        $scope.locations = l;
+        $scope.delete = function (storyId) {
+            var url = 'http://geonews.azurewebsites.net/api/Location/' + storyId;
+            $http.delete(url).success(function () {
+                var arrayb = l;
+                l = [];
+                for (var i = 0; i < arrayb.length; i++) {
+                    if (arrayb[i].id != storyId) {
+                        l.push(arrayb[i]);
+                    }
+                }
+            });
+        };
+    }
+]);
 
 myapp.controller('newsListCtrl', ['$scope', '$http', 'stories',
     function ($scope, $http, stories) {
@@ -64,7 +104,7 @@ myapp.controller('newsListCtrl', ['$scope', '$http', 'stories',
                     }
                 }
             });
-        }
+        };
     }
 ]);
 
