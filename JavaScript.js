@@ -59,10 +59,14 @@ myapp.controller('listLocationsCtrl', ['$scope', '$http', 'locations',
         if (l.length == 0) {
             $http.get('http://geonews.azurewebsites.net/api/Location')
                     .success(function (data) {
+                        l.push({ id:24, name: "Te Papa" });
                         for (var i = 0; i < data.length; i++) {
                             l.push(data[i]);
                         }
                     });
+                    // .fail(function () {
+                    //     l.push({ id:24, name: "Te Papa" });
+                    // });
                     l.push({ id: 23, name: "TSB Arena" });
         }
         $scope.locations = l;
@@ -133,7 +137,7 @@ myapp.controller('newsDetailCtrl', ['$scope', '$http', '$routeParams', 'stories'
                 $scope.story.paragraphs.push($scope.newParagraph);
                 $scope.newParagraph = '';
             }).error(function () {
-                console.log('Fuck up');
+                console.log('Fucked up');
             });
         };
     }
